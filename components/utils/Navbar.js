@@ -2,38 +2,33 @@ import React, { useState, useEffect } from "react";
 import Image from 'next/image'
 
 export default function Navbar() {
+    const [show, setshow] = useState(false);
     const myLoader = ({ src, width, quality }) => {
         return `https://example.com/${src}?w=${width}&q=${quality || 75}`
     }
-    function open() {
-        const menu = document.querySelector(".mobile-menu");
-        menu.classNameList.toggle("hidden");
-    }
+    const toogle = () => { setshow(!show); }
     return (
         <div>
-            <nav className="bg-primary shadow-lg text-white">
+            <nav className="bg-primary shadow-lg text-white fixed z-10 top-0 w-full">
                 <div className="">
                     <div className="flex py-2 px-2">
-                        <div style={{ width: "20%" }}>
+                        <div className="w-4/5">
                             <a href="#" className="flex items-center py-4 px-5">
                                 <Image src="/logo.png" alt="me" width="90" height="25" />
                             </a>
                         </div>
-                        <div style={{ width: "60%", fontSize:"16px" }}>
-                            <div class="hidden px-24 md:flex justify-evenly space-x-1">
+                            <div class="hidden px-24 md:flex justify-evenly space-x-1 text-lg w-1/5">
                                 <a href="" class="py-4 px-2   hover:text-green-500 transition duration-300">Dashboard</a>
                                 <a href="" class="py-4 px-2   hover:text-green-500 transition duration-300">Workspace</a>
                                 <a href="" class="py-4 px-2   hover:text-green-500 transition duration-300">Library</a>
                                 <a href="" class="py-4 px-2   hover:text-green-500 transition duration-300">Clients</a>
                                 <a href="" class="py-4 px-2   hover:text-green-500 transition duration-300">Pricing</a>
-                            </div>
                         </div>
-                        <div style={{ width: "20%" }} className="md:flex justify-end px-4 space-x-5">
+                        <div className="flex justify-end px-4 space-x-5 w-4/5">
                             <a href="#" className="flex items-center py-4 px-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                                 </svg>
-
                             </a>
                             <a href="#" className="flex items-center py-4 px-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -47,32 +42,35 @@ export default function Navbar() {
                                 </svg>
 
                             </a>
+                            <div className="md:hidden flex items-center">
+                                <button className="outline-none mobile-menu-button" onClick={toogle}>
+                                    <svg className=" w-6 h-6 text-gray-500 hover:text-green-500 "
+                                        x-show="!showMenu"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        stroke-width="2"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                    >
+                                        <path d="M4 6h16M4 12h16M4 18h16"></path>
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
+
                     </div>
-                    <div className="md:hidden flex items-center">
-                        <button className="outline-none mobile-menu-button" onClick={open}>
-                            <svg className=" w-6 h-6 text-gray-500 hover:text-green-500 "
-                                x-show="!showMenu"
-                                fill="none"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                            >
-                                <path d="M4 6h16M4 12h16M4 18h16"></path>
-                            </svg>
-                        </button>
-                    </div>
+
                 </div>
-                <div className="hidden mobile-menu">
-                    <ul className="">
+                {show && <div className="mobile-menu">
+                    <ul>
                         <li className="active"><a href="index.html" className="block text-sm px-2 py-4 text-white bg-green-500 font-semibold">Home</a></li>
                         <li><a href="#services" className="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Services</a></li>
                         <li><a href="#about" className="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">About</a></li>
                         <li><a href="#contact" className="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Contact Us</a></li>
                     </ul>
                 </div>
+                }
             </nav>
         </div>
     );

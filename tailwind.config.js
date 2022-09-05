@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */ 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./node_modules/flowbite-react/**/*.js",
@@ -11,29 +11,28 @@ module.exports = {
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
-      'primary' : '#0052CC',
-      'gray' : '##8F92A1',
-      'white': '#ffffff',
-      'bluec' : '#4AE8ED',
-      'black' : '#000000',
-      'navcol' : '#222831',
-      'green' : '#1CBC9B',
-      'working' : '#99ff99',
-      'linkc' : "#0085FF",
-      'linec' : "#393E46",
-      'purple': '#3f3cbb',
-      'midnight': '#121063',
-      'metal': '#565584',
-      'tahiti': '#3ab7bf',
-      'silver': '#848484',
-      'bubble-gum': '#ff77e9',
+      'primary': '#0052CC',
+      'secondary' : 'rgba(0, 82, 204, 0.13)',
+      'gray': '##8F92A1',
       'grey': '#EEEEEE',
-      'bgc' : 'rgba(143, 146, 161, 0.05)',
+      'bgc': 'rgba(143, 146, 161, 0.05)',
+      'white':'#FFFFFF',
+      'green' : '#22c55e',
+      'red':'#f43f5e',
+      'lightg' : '#F1F8FA',
+      'darkg' : '#EDF1F8',
     },
-    fontFamily : {
-      'fontPrimary': ['"fontPrimary"', 'lexend'] 
-    }
+    fontFamily: {
+      'fontPrimary': ['"fontPrimary"', 'lexend']
+    },
+    fontSize: {
+      'xs': '12px',
+      'sm': '14px',
+      'lg': '20px',
+      'xl': '28px',
+      '2xl': '32px',
+    },
   },
   plugins: [
-]
+  ]
 }

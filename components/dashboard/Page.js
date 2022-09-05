@@ -6,7 +6,7 @@ export default function Page() {
     return (
         <>
             <Header />
-            <div className="flex">
+            <div className="container1">
                 <LeftView />
                 <RightView />
             </div>

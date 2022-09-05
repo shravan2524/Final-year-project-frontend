@@ -46,9 +46,9 @@ const ProductTable = (props) => {
     };
     return (
         <table className='w-full bg-white'>
-            <thead className='bg-bgc rounded-3xl border-white text-gray color-gray' style={{ borderWidth: "25px" }}>
+            <thead className='bg-bgc rounded-3xl border-white text-gray color-gray border-[25px]'>
                 <tr>
-                    <th style={{ width: "70%", padding: "1rem" }}>
+                    <th className='p-4 w-3/5 rounded-xl'>
                         <button
                             type="button"
                             onClick={() => requestSort('name')}
@@ -59,7 +59,7 @@ const ProductTable = (props) => {
                             <Image src="/downArrow.png" alt="me" width="15" height="10" />
                         </button>
                     </th>
-                    <th style={{ width: "10%" }}>
+                    <th className='w-1/5'>
                         <button
                             type="button"
                             onClick={() => requestSort('price')}
@@ -70,7 +70,7 @@ const ProductTable = (props) => {
                             <Image src="/downArrow.png" alt="me" width="15" height="10" />
                         </button>
                     </th>
-                    <th>
+                    <th className='w-1/5'>
                         <button
                             type="button"
                             onClick={() => requestSort('stock')}
@@ -82,15 +82,15 @@ const ProductTable = (props) => {
                     </th>
                 </tr>
             </thead>
-            <tbody >
+            <tbody className='h-[8rem] overflow-y-scroll' >
                 {items.map((item) => (
                     <tr key={item.id}>
-                        <td className='flex px-5 py-3'>
+                        <td className='flex px-5 py-3  w-3/5'>
                             <div className='pr-4'><Image src={item.img} alt="me" width="30" height="30" /></div>
                             {item.name}
                         </td>
-                        <td>{item.lastEdit}</td>
-                        <td>{item.action}</td>
+                        <td className=' w-1/5'>{item.lastEdit}</td>
+                        <td className=' w-1/5'>{item.action}</td>
                     </tr>
                 ))}
             </tbody>
