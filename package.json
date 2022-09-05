@@ -5,18 +5,33 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "test": "standard && node my-tests.js",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.7",
     "@reduxjs/toolkit": "^1.8.3",
+    "@uiw/react-markdown-preview": "^4.0.24",
     "ag-grid-community": "^28.1.0",
+    "ag-grid-enterprise": "^28.1.0",
+    "ag-grid-react": "^28.1.0",
+    "axios": "^0.27.2",
+    "flowbite": "^1.5.3",
+    "marked": "^4.0.18",
     "next": "12.2.4",
+    "next-mdx-remote": "^4.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.34.2",
     "react-hot-toast": "^2.3.0",
+    "react-markdown": "^8.0.3",
+    "react-modern-drawer": "^1.1.2",
     "react-redux": "^8.0.2",
-    "redux": "^4.2.0"
+    "react-select": "^5.4.0",
+    "redux": "^4.2.0",
+    "rsuite": "^5.16.4",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@redux-devtools/core": "^3.13.1",
