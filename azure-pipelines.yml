@@ -1,0 +1,50 @@
+trigger:
+  - development
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - name: webappname
+    value: finkraft-frontend
+  - name: azSub
+    value: "9d2f7d43-d721-472f-9525-a11ced965b23"
+  - name: resourceGroupName
+    value: beta.finkraft
+
+stages:
+  - stage: Build
+    jobs:
+      - job: Build
+        steps:
+          - task: UseNode@1
+            inputs:
+              version: '16.x'
+
+          - script: "npm install"
+
+     #     - script: "yarn test"
+
+          - script: "npm run build"
+
+          - publish: "build"
+            artifact: "reactapp"
+
+  - stage: Development
+    dependsOn: Build
+    jobs:
+      - job: Deploy
+        steps:
+          - download: current
+            artifact: "reactapp"
+
+          - task: AzureRmWebAppDeployment@4
+            inputs:
+              WebAppName: $(webappname)
+              azureSubscription: $(azSub)
+              packageForLinux: "$(Pipeline.Workspace)/reactapp"
+              DeploymentType: zipDeploy
+              RemoveAdditionalFilesFlag: true
+              StartupCommand: "pm2 serve /home/site/wwwroot --no-daemon --spa"
+          
+
