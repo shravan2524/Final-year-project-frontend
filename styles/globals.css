@@ -8,22 +8,40 @@
   height: 4px;
 
 }
+
 ::-webkit-scrollbar-track {
-  background-color: #0052CC;
+  background-color: rgba(0, 82, 204, 0.13);
   cursor: pointer;
 }
+
 ::-webkit-scrollbar-thumb {
   cursor: pointer;
   background-color: #0052CC;
 }
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: "fontPrimary", lexend;
 }
-@layer components {
+
+
   .container1 {
     @apply py-2 px-4 rounded xl:flex;
   }
+  .ag-header.ag-pivot-off{
+    @apply bg-secondary rounded-t-3xl border-grey
+  }
+.ag-root-wrapper.ag-ltr.ag-layout-normal {
+ @apply border-none
+}
+.ag-cell.ag-cell-not-inline-editing.ag-cell-normal-height.ag-cell-value{
+  @apply border-r-2 border-grey
+}
+.ag-body-horizontal-scroll{
+  @apply !min-h-[35px] !max-h-[30px] !w-[95%] mx-auto
+}
+.ag-body-horizontal-scroll-viewport{
+  @apply relative top-6
 }

@@ -31,7 +31,7 @@ const images = [
 function Card({ img, title, url }) {
     const router = useRouter()
     return (
-        <div class="bg-white justify-center rounded-xl p-6 cursor-pointer hover:bg-secondary bg-gray-100 text-center" onClick={() => router.push(url)}>
+        <div className="bg-white justify-center rounded-xl p-6 cursor-pointer hover:bg-secondary bg-gray-100 text-center" onClick={() => router.push(url)}>
             <div>
                 <Image src={img} alt="me" width="120" height="120" />
             </div>
@@ -60,8 +60,8 @@ export default function LeftView() {
                 <div className=" font-semibold pb-8 text-lg ">
                     <span>What You Are Looking For</span>
                 </div>
-                <div class="container mx-auto overflow-x-auto">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="container mx-auto overflow-x-auto">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {
                             images.map((e) => {
                                 return <Card img={e.img} title={e.title} url={e.url} />

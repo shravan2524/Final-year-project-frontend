@@ -111,8 +111,8 @@ function YourCompany() {
 
     return (
         <div>
-            <div class="container mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div className="container mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                     {
                         report.map((e, index) => {
                             return <Card type={e.type} total={e.total} index={index} />
@@ -124,7 +124,7 @@ function YourCompany() {
                 <div className="text-primary font-semibold text-lg">
                     Team Members
                 </div>
-                <div class="bg-white justify-start rounded-xl p-2 text-center m-2 justify-around">
+                <div className="bg-white justify-start rounded-xl p-2 text-center m-2 justify-around">
                     {
                         members.map((e) => {
                             return (<div className="flex justify-between py-3 px-6">
@@ -154,7 +154,7 @@ function YourCompany() {
 
 function Card1({ description, name }) {
     return (
-        <div class="bg-white flex justify-start rounded-xl p-6 text-center m-2">
+        <div className="bg-white flex justify-start rounded-xl p-6 text-center m-2">
             <div className="relative top-1">
                 <Image src="/pin.png" alt="me" width="15" height="15" />
             </div>
@@ -224,8 +224,8 @@ function General() {
 
     return (
         <div>
-            <div class="container mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div className="container mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
                     {
                         report.map((e, index) => {
                             return <Card type={e.type} total={e.total} index={index} />

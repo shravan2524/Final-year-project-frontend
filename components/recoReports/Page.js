@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Stepper from './Stepper';
-
+import AgGrid from './AgGrid';
 function Wizard() {
     const [currentStep, setCurrentStep] = useState(1);
     const stepArray = [
@@ -39,8 +39,8 @@ export default function Page() {
     return (
         <>
             <Header />
-            <div className="container1">
-                <Wizard />
+            <div className="container">
+                <AgGrid />
             </div>
         </>
     );

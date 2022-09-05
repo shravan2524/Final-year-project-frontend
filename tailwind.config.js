@@ -12,7 +12,7 @@ module.exports = {
       transparent: 'transparent',
       current: 'currentColor',
       'primary': '#0052CC',
-      'secondary' : 'rgba(0, 82, 204, 0.13)',
+      'secondary' : '#0052cc21',
       'gray': '##8F92A1',
       'grey': '#EEEEEE',
       'bgc': 'rgba(143, 146, 161, 0.05)',
