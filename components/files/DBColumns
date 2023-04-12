@@ -1,0 +1,327 @@
+const sortFn = (a, b) => {
+  if (a.columnTitle === b.columnTitle) {
+    if (a.columnName < b.columnName) {
+      return -1;
+    }
+    return 1;
+  }
+  if (a.columnTitle < b.columnTitle) {
+    return -1;
+  }
+  return 1;
+};
+
+
+export const columnTypes = [
+  {
+    id: 'string',
+    title: 'String',
+  },
+  {
+    id: 'gstin',
+    title: 'GSTIN',
+  },
+  {
+    id: 'date_mm_dd_yyyy',
+    title: 'Date as MM/DD/YYYY',
+  },
+  {
+    id: 'date_dd_mm_yyyy',
+    title: 'Date as DD/MM/YYYY',
+  },
+  {
+    id: 'decimal_d',
+    title: 'Decimal as 123.1231',
+  },
+  {
+    id: 'decimal_c',
+    title: 'Decimal as 123,1231',
+  },
+];
+
+
+export const columns2A = [
+  {
+    columnName: 'invoiceNumber',
+    columnTitle: 'Invoice Number',
+  },
+  {
+    columnName: 'sellerGSTIN',
+    columnTitle: 'Seller/Vendor GSTIN',
+    columnType: 'gstin',
+  },
+  {
+    columnName: 'buyerGSTIN',
+    columnTitle: 'Buyer/Gstin GSTIN',
+    columnType: 'gstin',
+  },
+  {
+    columnName: 'invoiceDate',
+    columnTitle: 'Invoice Date',
+    columnType: 'date_dd_mm_yyyy',
+  },
+  {
+    columnName: 'filingPeriod',
+    columnTitle: 'Filling Period',
+  },
+  {
+    columnName: 'documentType',
+    columnTitle: 'Document Type',
+  },
+  {
+    columnName: 'originalInvoiceNumber',
+    columnTitle: 'Original Invoice Number',
+  },
+  {
+    columnName: 'originalInvoiceDate',
+    columnTitle: 'Original Invoice Date',
+    columnType: 'date_dd_mm_yyyy',
+  },
+  {
+    columnName: 'totalAmount',
+    columnTitle: 'Total Amount',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'igst',
+    columnTitle: 'IGST',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'sgst',
+    columnTitle: 'SGST',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'cgst',
+    columnTitle: 'CGST',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'totalGst',
+    columnTitle: 'Total GST',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'taxableAmount',
+    columnTitle: 'Taxable Amount',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'taxRate',
+    columnTitle: 'Tax Rate',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'irn',
+    columnTitle: 'IRN',
+  },
+  {
+    columnName: 'rowUpdateDate',
+    columnTitle: 'Row Updated At',
+  },
+  {
+    columnName: 'irnDate',
+    columnTitle: 'IRN Date',
+    columnType: 'date_dd_mm_yyyy',
+  },
+].sort(sortFn);
+
+
+export const columns2B = [
+  {
+    columnName: 'invoiceNumber',
+    columnTitle: 'Invoice Number',
+  },
+  {
+    columnName: 'sellerGSTIN',
+    columnTitle: 'Seller/Vendor GSTIN',
+    columnType: 'gstin',
+  },
+  {
+    columnName: 'buyerGSTIN',
+    columnTitle: 'Buyer/Gstin GSTIN',
+    columnType: 'gstin',
+  },
+  {
+    columnName: 'invoiceDate',
+    columnTitle: 'Invoice Date',
+    columnType: 'date_dd_mm_yyyy',
+  },
+  {
+    columnName: 'filingPeriod',
+    columnTitle: 'Filling Period',
+  },
+  {
+    columnName: 'documentType',
+    columnTitle: 'Document Type',
+  },
+  {
+    columnName: 'originalInvoiceNumber',
+    columnTitle: 'Original Invoice Number',
+  },
+  {
+    columnName: 'originalInvoiceDate',
+    columnTitle: 'Original Invoice Date',
+    columnType: 'date_dd_mm_yyyy',
+  },
+  {
+    columnName: 'totalAmount',
+    columnTitle: 'Total Amount',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'igst',
+    columnTitle: 'IGST',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'sgst',
+    columnTitle: 'SGST',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'cgst',
+    columnTitle: 'CGST',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'totalGst',
+    columnTitle: 'Total GST',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'taxableAmount',
+    columnTitle: 'Taxable Amount',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'taxRate',
+    columnTitle: 'Tax Rate',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'irn',
+    columnTitle: 'IRN',
+  },
+  {
+    columnName: 'rowUpdateDate',
+    columnTitle: 'Row Updated At',
+  },
+  {
+    columnName: 'irnDate',
+    columnTitle: 'IRN Date',
+    columnType: 'date_dd_mm_yyyy',
+  },
+  {
+    columnName: 'itcAvailability',
+    columnTitle: 'ITC Availability',
+  },
+  {
+    columnName: 'reason',
+    columnTitle: 'Reason',
+  },
+  {
+    columnName: 'applicablePercentOfTaxRate',
+    columnTitle: 'Applicable Percent Of Tax Rate',
+  },
+].sort(sortFn);
+
+
+export const columnsPR = [
+  {
+    columnName: 'invoiceNumber',
+    columnTitle: 'Invoice Number',
+  },
+  {
+    columnName: 'sellerGSTIN',
+    columnTitle: 'Seller/Vendor GSTIN',
+    columnType: 'gstin',
+  },
+  {
+    columnName: 'buyerGSTIN',
+    columnTitle: 'Buyer/Gstin GSTIN',
+    columnType: 'gstin',
+  },
+  {
+    columnName: 'invoiceDate',
+    columnTitle: 'Invoice Date',
+    columnType: 'date_dd_mm_yyyy',
+  },
+  {
+    columnName: 'filingPeriod',
+    columnTitle: 'Filling Period',
+  },
+  {
+    columnName: 'documentType',
+    columnTitle: 'Document Type',
+  },
+  {
+    columnName: 'originalInvoiceNumber',
+    columnTitle: 'Original Invoice Number',
+  },
+  {
+    columnName: 'originalInvoiceDate',
+    columnTitle: 'Original Invoice Date',
+    columnType: 'date_dd_mm_yyyy',
+  },
+  {
+    columnName: 'totalAmount',
+    columnTitle: 'Total Amount',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'igst',
+    columnTitle: 'IGST',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'sgst',
+    columnTitle: 'SGST',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'cgst',
+    columnTitle: 'CGST',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'totalGst',
+    columnTitle: 'Total GST',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'taxableAmount',
+    columnTitle: 'Taxable Amount',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'taxRate',
+    columnTitle: 'Tax Rate',
+    columnType: 'decimal',
+  },
+  {
+    columnName: 'irn',
+    columnTitle: 'IRN',
+  },
+  {
+    columnName: 'fileName',
+    columnTitle: 'File Name',
+  },
+  {
+    columnName: 'VoucherNumber',
+    columnTitle: 'Voucher Number',
+  },
+  {
+    columnName: 'rowUpdateDate',
+    columnTitle: 'Row Updated At',
+  },
+].sort(sortFn);
+
+
+export default {
+  columns2A,
+  columns2B,
+  columnsPR,
+  columnTypes,
+};

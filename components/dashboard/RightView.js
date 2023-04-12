@@ -90,24 +90,6 @@ function YourCompany() {
         }
     ]
    
-    const summary = [
-        {
-            name: 'Someone',
-            description: 'Just registered on Finkraft'
-        },
-        {
-            name: 'Someone',
-            description: 'Just Got Their GST Filed'
-        },
-        {
-            name: 'Someone',
-            description: 'Just registered on Finkraft'
-        },
-        {
-            name: 'Someone',
-            description: 'Just Filed Their GST Returns'
-        },
-    ]
 
     return (
         <div>
@@ -116,34 +98,6 @@ function YourCompany() {
                     {
                         report.map((e, index) => {
                             return <Card type={e.type} total={e.total} index={index} />
-                        })
-                    }
-                </div>
-            </div>
-            <div className="mt-5">
-                <div className="text-primary font-semibold text-lg">
-                    Team Members
-                </div>
-                <div className="bg-white justify-start rounded-xl p-2 text-center m-2 justify-around">
-                    {
-                        members.map((e) => {
-                            return (<div className="flex justify-between py-3 px-6">
-                                <div className="flex">
-                                    <div>
-                                    <Image src={e.img} alt="me" width="50" height="50" className="rounded-full" />
-                                    </div>
-                                    <div className="font-bold pl-6 relative top-2 text-lg">
-                                        {e.name}
-                                    </div>
-                                </div>
-
-                                {
-                                    e.status === "online"
-                                        ? <Active />
-                                        : <Block />
-                                }
-                            </div>
-                            )
                         })
                     }
                 </div>
@@ -203,24 +157,6 @@ function General() {
         }
 
     ]
-    const summary = [
-        {
-            name: 'Someone',
-            description: 'Just registered on Finkraft'
-        },
-        {
-            name: 'Someone',
-            description: 'Just Got Their GST Filed'
-        },
-        {
-            name: 'Someone',
-            description: 'Just registered on Finkraft'
-        },
-        {
-            name: 'Someone',
-            description: 'Just Filed Their GST Returns'
-        },
-    ]
 
     return (
         <div>
@@ -229,18 +165,6 @@ function General() {
                     {
                         report.map((e, index) => {
                             return <Card type={e.type} total={e.total} index={index} />
-                        })
-                    }
-                </div>
-            </div>
-            <div className="mt-5">
-                <div className="text-primary font-semibold text-lg" >
-                    Summary
-                </div>
-                <div>
-                    {
-                        summary.map((e) => {
-                            return <Card1 description={e.description} name={e.name} />
                         })
                     }
                 </div>

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Image from 'next/image'
-
+import { useRouter } from 'next/router';
 export default function Navbar() {
     const [show, setshow] = useState(false);
+    const router = useRouter();
     const myLoader = ({ src, width, quality }) => {
         return `https://example.com/${src}?w=${width}&q=${quality || 75}`
     }
@@ -18,11 +19,10 @@ export default function Navbar() {
                             </a>
                         </div>
                             <div className="hidden px-24 md:flex justify-evenly space-x-1 text-lg w-1/5">
-                                <a href="" className="py-4 px-2   hover:text-green-500 transition duration-300">Dashboard</a>
-                                <a href="" className="py-4 px-2   hover:text-green-500 transition duration-300">Workspace</a>
-                                <a href="" className="py-4 px-2   hover:text-green-500 transition duration-300">Library</a>
-                                <a href="" className="py-4 px-2   hover:text-green-500 transition duration-300">Clients</a>
-                                <a href="" className="py-4 px-2   hover:text-green-500 transition duration-300">Pricing</a>
+                                <a href="/" onClick={()=> router.push("/")} className="py-4 px-2   hover:text-green-500 transition duration-300">Dashboard</a>
+                                <a href="/files" className="py-4 px-2   hover:text-green-500 transition duration-300">Files</a>
+                                <a href="integrations" className="py-4 px-2   hover:text-green-500 transition duration-300">Integrations</a>
+                                <a href="reconcilation" className="py-4 px-2   hover:text-green-500 transition duration-300">Reconcilation</a>
                         </div>
                         <div className="flex justify-end px-4 space-x-5 w-4/5">
                             <a href="#" className="flex items-center py-4 px-2">

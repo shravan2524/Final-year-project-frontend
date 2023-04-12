@@ -28,7 +28,7 @@
     "react-markdown": "^8.0.3",
     "react-modern-drawer": "^1.1.2",
     "react-redux": "^8.0.2",
-    "react-select": "^5.4.0",
+    "react-select": "^5.7.2",
     "redux": "^4.2.0",
     "rsuite": "^5.16.4",
     "yup": "^0.32.11"
