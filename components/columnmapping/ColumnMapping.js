@@ -3,11 +3,12 @@ import Select from 'react-select'
 import { columns2A, columns2B, columnsPR } from './DBColumns';
 import { useRouter } from 'next/router';
 
-export default function MatchColumn() {
+export default function columnMapping() {
     const fileType = "2A";
-    const [test, settest] = useState(true);
-    const [loading, setloading] = useState(false);
     const router = useRouter();
+    const { id } = router.query;
+    const [loading, setloading] = useState(false);
+    const [tempcols, settempcols] = useState([])
     const [contentPreview, setcontentPreview] = useState({
         AF: [
             'afnakfdnakfafa',
@@ -98,6 +99,26 @@ export default function MatchColumn() {
 
     });
 
+    const get_columns = async () => {
+        const formData = new FormData();
+        console.log(id)
+        formData.append('id', String(id));
+        try {
+            const response = await fetch(' http://127.0.0.1:5000/get_file_details', {
+                method: 'POST',
+                body: formData,
+            });
+            const data1 = await response.json();
+            console.log("agGridData", data1.file[0]);
+            settempcols(data1.file)
+            setcontentPreview(data1.file[0])
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    useEffect(() => {
+        get_columns()
+    }, [id])
     const [columnMapping, setColumnMapping] = useState({});
     const [cols, setCols] = useState({
         '2A': columns2A,
@@ -127,32 +148,7 @@ export default function MatchColumn() {
         // console.log(cols);
         return fn;
     };
-    const setColumnGroup = (k) => {
-        const fn = (e) => {
-            const columnGroup = e.target.value;
-            const newColumnMapping = { ...columnMapping };
-            newColumnMapping[k] = newColumnMapping[k] || {};
-            newColumnMapping[k].columnGroup = columnGroup;
-            setColumnMapping(newColumnMapping);
-        };
 
-
-        return fn;
-    };
-
-
-    const setColumnType = (k) => {
-        const fn = (e) => {
-            const columnType = e.target.value;
-            const newColumnMapping = { ...columnMapping };
-            newColumnMapping[k] = newColumnMapping[k] || {};
-            newColumnMapping[k].columnType = columnType;
-            setColumnMapping(newColumnMapping);
-        };
-
-
-        return fn;
-    };
 
     const notSelectedColumnsFilter = (keyName) => (a) => !(
         Object.values(columnMapping).find(
@@ -164,16 +160,37 @@ export default function MatchColumn() {
     );
 
 
-    const upload = () => {
-        setloading(true);
-        // console.log(loading);
-        console.log(columnMapping);
-        const timer = setTimeout(() => {
-            setloading(false);
-            alert("Column Mapping Successfully")
-            router.push('/');
-            return () => clearTimeout(timer);
-          }, 3000);
+    const upload = async () => {
+        // setloading(true);
+        console.log(columnMapping, tempcols);
+        const formData = new FormData();
+        formData.append('newcolumns', {columnMapping});
+        formData.append('data', {tempcols});
+        try {
+            const response = await fetch(' http://127.0.0.1:5000/column_mapping', {
+                method: 'POST',
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                  },
+                body: JSON.stringify({'newcolumns': columnMapping, 
+                'data': tempcols,
+                'id' : id,
+            })
+            });
+            const data1 = await response.json();
+            console.log("agGridData", data1.file[0]);
+            settempcols(data1.file)
+            setcontentPreview(data1.file[0])
+        } catch (error) {
+            console.error(error);
+        }
+        // const timer = setTimeout(() => {
+        //     setloading(false);
+        //     alert("Column Mapping Successfully")
+        //     router.push('/');
+        //     return () => clearTimeout(timer);
+        //   }, 3000);
          
 
     }
@@ -224,12 +241,8 @@ export default function MatchColumn() {
                                                 <span className='font-semibold'>{keyName}</span>
                                             </div>
                                             {
-                                                contentPreview[keyName]?.map(
-                                                    (e, idx) => {
-                                                        e = e || ' ';
-                                                        return (<div key={idx}><span>{e}</span></div>);
-                                                    },
-                                                )
+                                                contentPreview[keyName]
+                                                
                                             }
                                         </div>
                                     </div>

@@ -8,16 +8,6 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-enterprise';
 import "ag-grid-community/styles/ag-grid.css";
 import 'ag-grid-community/styles/ag-theme-alpine.css';
-const { 
-    randomHexColor, 
-    randomHexColorStartWith, 
-    randomHexColorEndWith,
-    randomHexColorStartAndEndWith,
-    randomHexColorWithArray,
-    randomHexColorWithArrayOfObject,
-    randomHexColorArrayStartWith,
-    randomHexColorArrayEndWith,
-} = require('random-hex-color-generator')
 import {
 
     AreaSparklineOptions,
@@ -39,62 +29,61 @@ import { json } from 'stream/consumers';
 
 
 
-export default function Page() {
+export default function Page1() {
     const [agGridData, setagGridData] = useState([]);
     const router = useRouter();
-    const { ids } = router.query;
+    const { id } = router.query;
     const gridRef = useRef<any>();
     const [rowData, setRowData] = useState<any>();
-console.log(ids)
+
     const [rowData1, setRowData1] = useState<any>();
 
     const containerStyle = useMemo(
         () => ({ width: '100%', height: '600px', marginTop: '8rem', }),
         [],
     );
-    // const get_files = async () => {
-    //     const formData = new FormData();
-    //     console.log(id)
-    //     formData.append('id', String(id));
-    //     try {
-    //         const response = await fetch(' http://127.0.0.1:5000/get_file_details', {
-    //             method: 'POST',
-    //             body: formData,
-    //         });
-    //         const data1 = await response.json();
-    //         setRowData(data1.file);
-    //         console.log("agGridData", data1.file);
-    //         columnsdef(data1.file[0])
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
     const get_files = async () => {
-        console.log(ids)
+        const formData = new FormData();
+        console.log(id)
+        formData.append('id', String(id));
         try {
-            const response = await fetch(' http://127.0.0.1:5000/reconcile', {
+            const response = await fetch(' http://127.0.0.1:5000/get_file_details', {
                 method: 'POST',
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json'
-                  },
-                body: JSON.stringify({'ids': ids,
-            })
+                body: formData,
             });
             const data1 = await response.json();
-            setRowData(data1[0]);
-            setRowData1(data1[1]);
-            console.log("agGridData", data1[0]);
-            columnsdef(data1[0])
+            setRowData(data1.file);
+            console.log("agGridData", data1.file);
+            columnsdef(data1.file[0])
         } catch (error) {
             console.error(error);
         }
     }
+    // const get_files = async () => {
+    //     try {
+    //         const response = await fetch(' http://127.0.0.1:5000/reconcile', {
+    //             method: 'POST',
+    //             mode: 'cors',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //               },
+    //             body: JSON.stringify({'fileId1': "644244775ea08545ae706c0c", 
+    //             'fileId2': "6442446e5ea08545ae706c0b",
+    //         })
+    //         });
+    //         const data = await response.json();
+    //         setRowData(data[0]);
+    //         console.log("agGridData", data[0]);
+    //         columnsdef(data[0])
+    //     } catch (error) {
+    //         console.error(error);
+    //     }
+    // }
     useEffect(() => {
         get_files()
-    }, [ids])
+    }, [id])
 
-    const gridStyle = useMemo(() => ({ height: '85vh', width: '45vw' }), []);
+    const gridStyle = useMemo(() => ({ height: '85vh', width: '100%' }), []);
     function cellStyle(params: any) {
         console.log(params);
         const errors = params.data.errors?params.data.errors:[];
@@ -102,8 +91,7 @@ console.log(ids)
         console.log(errors, 'shravan', found)
         if(found){
             return {
-          border: `3px solid red`,
-          backgroundColor: '#fecdcd',
+          border: '2px solid red',
         }
         }
       }
@@ -181,7 +169,7 @@ console.log(ids)
                         Export to Excel
                     </button>
                 </div>
-                <div className='flex justify-around'>
+                {/* {console.log(rowData)} */}
                 <div style={gridStyle} className="ag-theme-alpine">
                     <AgGridReact
                         ref={gridRef}
@@ -197,23 +185,7 @@ console.log(ids)
                         icons={icons}
                     />
                 </div>
-                <div style={gridStyle} className="ag-theme-alpine">
-                    <AgGridReact
-                        ref={gridRef}
-                        rowData={rowData1}
-                        columnDefs={columns}
-                        rowSelection="multiple"
-                        rowDragManaged
-                        rowDragMultiRow
-                        rowGroupPanelShow="always"
-                        defaultColDef={defaultColDef}
-                        groupDisplayType="multipleColumns"
-                        animateRows
-                        icons={icons}
-                    />
-                </div>
 
-                </div>
             </div>
 
         </div>

@@ -1,81 +1,56 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 
+const ProductTable = ({ products }) => {
+    const router = useRouter();
+    // function ColumnMapping({ item }) {
+    //     console.log(item);
+    //     return (
+    //         <tr key={item.id} className="color-green">
+    //             <td className='flex px-5 py-3 w-3/5'>
+    //                 {item.fileName}
+    //             </td>
+    //             <td className="w-1/5 color-green"><p className='color-green'> {item.fileType}</p></td>
+    //             <td className=' w-1/5 color-red'>{item.status}</td>
+    //         </tr>
+    //     )
+    // }
+    const [selectedRows, setSelectedRows] = useState([]);
 
-const useSortableData = (items, config = null) => {
-    const [sortConfig, setSortConfig] = React.useState(config);
-
-    
-
-    const sortedItems = React.useMemo(() => {
-        let sortableItems = [...items];
-        if (sortConfig !== null) {
-            sortableItems.sort((a, b) => {
-                if (a[sortConfig.key] < b[sortConfig.key]) {
-                    return sortConfig.direction === 'ascending' ? -1 : 1;
-                }
-                if (a[sortConfig.key] > b[sortConfig.key]) {
-                    return sortConfig.direction === 'ascending' ? 1 : -1;
-                }
-                return 0;
-            });
+    const handleRowSelection = (e, id) => {
+        if (e.target.checked) {
+            setSelectedRows([...selectedRows, id]);
+        } else {
+            setSelectedRows(selectedRows.filter((rowId) => rowId !== id));
         }
-        return sortableItems;
-    }, [items, sortConfig]);
-
-    const requestSort = (key) => {
-        let direction = 'ascending';
-        if (
-            sortConfig &&
-            sortConfig.key === key &&
-            sortConfig.direction === 'ascending'
-        ) {
-            direction = 'descending';
-        }
-        setSortConfig({ key, direction });
     };
 
-    return { items: sortedItems, requestSort, sortConfig };
-};
-
-const ProductTable = (props) => {
-    const { items, requestSort, sortConfig } = useSortableData(props.products);
-    const getClassNamesFor = (name) => {
-        if (!sortConfig) {
-            return;
-        }
-        return sortConfig.key === name ? sortConfig.direction : undefined;
+    const handleSubmit = () => {
+        // Submit selectedRows array to backend or do something else
+        console.log("Selected rows: ", selectedRows);
+        router.push({
+            pathname: '/reconcilation',
+            query: { ids: selectedRows }
+          });
     };
-    function ColumnMapping({item}){
-        console.log(item);
+    function Validate({ item }) {
         return (
-            <tr key={item.id} className="color-green">
-                        <td className='flex px-5 py-3 w-3/5'>
-                            {item.name}
-                        </td>
-                        <td className="w-1/5 color-green"><p className='color-green'> {item.documentType}</p></td>
-                        <td className=' w-1/5 color-red'>{item.status}</td>
-                        <td className=' w-1/5 color-red'>{item.action}</td>
-                    </tr>
-        )
-    }
-
-    function Validate({item}){
-        return(
-            <tr key={item.id}>
+            <tr key={item._id}>
                 <td>
-                    <input type="checkbox" />
+                    <input
+                        type="checkbox"
+                        onChange={(e) => handleRowSelection(e, item._id)}
+                        checked={selectedRows.includes(item._id)}
+                    />
                 </td>
-                        <td className='flex px-5 py-3  w-3/5'>
-                            {item.name}
-                        </td>
-                        <td className={`w-1/5 ${item.color==="green"?"color-green" : item.color==="red"?"color-red":"color-orange"}`}>{item.documentType}</td>
-                        <td className=' w-1/5'>{item.status}</td>
-                        <td className=' w-1/5'>{item.action}</td>
-                    </tr>
+                <td className=' w-1/5'> <a href={`file/${item._id}`}> {item.fileName} </a></td>
+                <td className={`w-1/5 ${item.color === "green" ? "color-green" : item.color === "red" ? "color-red" : "color-orange"}`}>{item.fileType}</td>
+                <td className=' w-1/5'>{item.status}</td>
+                <td className=' w-1/5'>{item.action}</td>
+            </tr>
         )
 
     }
@@ -83,7 +58,7 @@ const ProductTable = (props) => {
         <table className='w-full bg-white'>
             <thead className='bg-bgc rounded-3xl border-white text-gray color-gray border-[25px]'>
                 <tr>
-                <th className='p-4 w-[10px] rounded-xl'>
+                    <th className='p-4 w-[10px] rounded-xl'>
                         <button
                             type="button"
                             onClick={() => requestSort('name')}
@@ -140,12 +115,10 @@ const ProductTable = (props) => {
                 </tr>
             </thead>
             <tbody className='h-[8rem] overflow-y-scroll' >
-                {items.map((item) => (
-                     item.color==="red"
-                    ?  <ColumnMapping item={item}/>
-                    : <Validate item={item}/>
+                {products.map((item) => (<Validate item={item} />
                 ))}
             </tbody>
+            <button onClick={handleSubmit}>Submit</button>
         </table>
     );
 };
@@ -153,52 +126,62 @@ const ProductTable = (props) => {
 export default function VendorTable() {
     const router = useRouter();
     const [loading, setloading] = useState(false);
-    const [products, setproducts] = useState([
-        { id: 1, img: '/qatarAirways.png', name: 'File1', documentType: '2A', lastEdit: 'Jul 18, 2020', status: 'Mapped', action: 'Created File', price: 4.9, stock: 20, color :"green"     },
-        { id: 2, img: '/yatra.png', name: 'File2',documentType: '2B', lastEdit: 'Jul 18, 2020', status: 'Not Mapped', action: 'Uploaded File', price: 1.9, stock: 32 , color : "orange"},
-    ])
-    useEffect(() => {
-        const temp = localStorage.getItem("temp");
-        console.log(temp)
-    if(temp==1){
-        setproducts([
-            { id: 2, img: '/yatra.png', name: 'File3',documentType: '2B', lastEdit: 'Jul 18, 2020', status: 'Not Mapped', action: 'Uploaded File', price: 1.9, stock: 32 , color : "orange"},
-            { id: 1, img: '/qatarAirways.png', name: 'File1', documentType: '2A', lastEdit: 'Jul 18, 2020', status: 'Mapped', action: 'Created File', price: 4.9, stock: 20, color :"green"     },
-            { id: 2, img: '/yatra.png', name: 'File2',documentType: '2B', lastEdit: 'Jul 18, 2020', status: 'Not Mapped', action: 'Uploaded File', price: 1.9, stock: 32 , color : "orange"},
-        ])
+    const [files, setfiles] = useState([])
+    const get_files = async () => {
+        const formData = new FormData();
+        formData.append('email', 'abc@abc.com');
+        try {
+            const response = await fetch(' http://127.0.0.1:5000/get_files', {
+                method: 'POST',
+                body: formData,
+            });
+            const data = await response.json();
+            // console.log(data);
+            setfiles(data)
+            console.log(files)
+        } catch (error) {
+            console.error(error);
+        }
+
     }
-    console.log(products)
+    useEffect(() => {
+        get_files()
     }, [])
-    
-   
-    function upload(){
+
+
+    function upload() {
         setloading(true);
         console.log(loading);
         const timer = setTimeout(() => {
             setloading(false);
-            
+
 
             alert("Reconcilation Successfull")
             router.push('/reconcilation');
-            
+
             return () => clearTimeout(timer);
-          }, 10000);
-         
+        }, 10000);
+
     }
     return (
         <div className="App">
             <ProductTable
-                products={products}
+                products={files}
             />
+            {/* {
+                files && files.file
+                ? console.log(files)
+                : console.log(files)
+            } */}
             <div className='m-auto my-4'><button onClick={upload} class="block m-auto rounded p-4 bg-primary hover:bg-secondary text-white">Reconcile Select file</button></div>
             {
                 loading
-                ? <div  class="backdrop-filter backdrop-blur-sm fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-secondary opacity-75 flex flex-col items-center justify-center">
-                <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
-                <h2 class="text-center text-xl font-semibold">We are reconciling your files...</h2>
-                <p class="w-1/3 text-center">This may take a few seconds, please don't close this page.</p>
-            </div>
-            : null}
+                    ? <div class="backdrop-filter backdrop-blur-sm fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-secondary opacity-75 flex flex-col items-center justify-center">
+                        <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+                        <h2 class="text-center text-xl font-semibold">We are reconciling your files...</h2>
+                        <p class="w-1/3 text-center">This may take a few seconds, please don't close this page.</p>
+                    </div>
+                    : null}
         </div>
     );
 }

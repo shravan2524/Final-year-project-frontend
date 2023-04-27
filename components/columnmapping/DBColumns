@@ -42,49 +42,60 @@ export const columnTypes = [
 
 export const columns2A = [
   {
-    columnName: 'cgstAmount',
+    columnName: 'CGST Amount',
     columnTitle: 'CGST Amount',
   },
   {
-    columnName: 'cessAmount',
+    columnName: 'Cess Amount',
     columnTitle: 'Cess Amount',
   },
   {
-    columnName: 'customerGSTIN',
+    columnName: 'Customer GSTIN',
     columnTitle: 'Customer GSTIN',
   },
   {
-    columnName: 'filingPeriod',
+    columnName: 'Invoice Date',
+    columnTitle: 'Invoice Date',
+  },
+  {
+    columnName: 'Filing Period',
     columnTitle: 'Filing Period',
   },
   {
-    columnName: 'igstAmount',
+    columnName: 'IGST Amount',
     columnTitle: 'IGST Amount',
   },
   {
-    columnName: 'sgstAmount',
+    columnName: 'SGST Amount',
     columnTitle: 'SGST Amount',
   },
   {
-    columnName: 'supplierGSTIN',
+    columnName: 'Invoice Date Gap',
+    columnTitle: 'Invoice Date Gap',
+  },
+  {
+    columnName: 'Supplier GSTIN',
     columnTitle: 'Supplier GSTIN',
   },
   {
-    columnName: 'supplierName',
+    columnName: 'Invoice Number Match',
+    columnTitle: 'Invoice Number Match',
+  },
+  {
+    columnName: 'Supplier Name',
     columnTitle: 'Supplier Name',
   },
   {
-    columnName: 'totalAmount',
-    columnTitle: 'Total Amount',
-  },
-  {
-    columnName: 'taxableAmount',
+    columnName: 'Taxable Amount',
     columnTitle: 'Taxable Amount',
   },
   {
-    columnName: 'invoiceUUID',
+    columnName: 'Invoice UUID',
     columnTitle: 'Invoice UUID',
-    columnType: 'decimal',
+  },
+  {
+    columnName: 'Doc Type',
+    columnTitle: 'Doc Type',
   },
 ].sort(sortFn);
 

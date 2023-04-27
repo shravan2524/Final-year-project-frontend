@@ -3,10 +3,12 @@ import { useRouter } from 'next/router';
 
 export default function Page() {
 
-    
+
     const [products, setproducts] = useState({});
     const [loading, setloading] = useState(false);
     const router = useRouter();
+
+    const [file, setFile] = useState(null);
     function Card({ name, img }) {
         return (
             <div className='p-4 flex justify-between w-[30%] h-18 mb-4 m-auto rounded' style={{ background: "#f1f1f1" }}>
@@ -19,10 +21,30 @@ export default function Page() {
                 </div>
             </div>
         )
-
     }
 
-    
+    const handleFileInputChange = (event) => {
+        setFile(event.target.files[0]);
+    };
+
+    const handleFormSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('fileType', '2A');
+        try {
+            const response = await fetch('http://127.0.0.1:5000/upload_csv', {
+                method: 'POST',
+                body: formData,
+            });
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     const upload = () => {
         setloading(true);
         console.log(loading);
@@ -39,8 +61,8 @@ export default function Page() {
             alert("File upload Successfully")
             router.push('/matchcolumn');
             return () => clearTimeout(timer);
-          }, 3000);
-         
+        }, 3000);
+
 
     }
 
@@ -72,13 +94,10 @@ export default function Page() {
                 <li className='p-2'>2. Match Column</li>
             </div>
             <div class=" items-center justify-center w-[30%] m-auto mt-32">
-                <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-[#f1f1f1] border rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                        <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                        <p class="mb-2 text-lg text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                    </div>
-                    <input id="dropzone-file" type="file"  />
-                </label>
+                <form onSubmit={handleFormSubmit}>
+                    <input type="file" onChange={handleFileInputChange} />
+                    <button type="submit">Upload</button>
+                </form>
                 <div className='mt-8 align-center m-auto'>
                     <span>
                         Some of the popular file formats we support are .csv, .xlx and .pdf.
@@ -100,12 +119,12 @@ export default function Page() {
             </div>
             {
                 loading
-                ? <div  class="backdrop-filter backdrop-blur-sm fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-secondary opacity-75 flex flex-col items-center justify-center">
-                <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
-                <h2 class="text-center text-xl font-semibold">Uploading...</h2>
-                <p class="w-1/3 text-center">This may take a few seconds, please don't close this page.</p>
-            </div>
-            : null}
+                    ? <div class="backdrop-filter backdrop-blur-sm fixed top-0 left-0 right-0 bottom-0 w-full h-screen z-50 overflow-hidden bg-secondary opacity-75 flex flex-col items-center justify-center">
+                        <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12 mb-4"></div>
+                        <h2 class="text-center text-xl font-semibold">Uploading...</h2>
+                        <p class="w-1/3 text-center">This may take a few seconds, please don't close this page.</p>
+                    </div>
+                    : null}
         </div>
     )
 }
